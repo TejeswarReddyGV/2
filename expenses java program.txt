@@ -1,0 +1,73 @@
+import java.util.*;
+
+class Expense {
+    private String category;
+    private double amount;
+
+    public Expense(String category, double amount) {
+        this.category = category;
+        this.amount = amount;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+}
+
+class ExpenseTracker {
+    private List<Expense> expenses;
+
+    public ExpenseTracker() {
+        expenses = new ArrayList<>();
+    }
+
+    public void addExpense(String category, double amount) {
+        expenses.add(new Expense(category, amount));
+    }
+
+    public void viewExpenses() {
+        for (Expense expense : expenses) {
+            System.out.println("Category: " + expense.getCategory() + ", Amount: " + expense.getAmount());
+        }
+    }
+
+    public double calculateTotalExpense() {
+        double total = 0;
+        for (Expense expense : expenses) {
+            total += expense.getAmount();
+        }
+        return total;
+    }
+
+    public Map<String, Double> calculateCategoryWiseExpense() {
+        Map<String, Double> categoryWiseExpense = new HashMap<>();
+        for (Expense expense : expenses) {
+            String category = expense.getCategory();
+            categoryWiseExpense.put(category, categoryWiseExpense.getOrDefault(category, 0.0) + expense.getAmount());
+        }
+        return categoryWiseExpense;
+    }
+
+    public static void main(String[] args) {
+        ExpenseTracker expenseTracker = new ExpenseTracker();
+
+        // Adding some sample expenses
+        expenseTracker.addExpense("Groceries", 50.0);
+        expenseTracker.addExpense("Transportation", 30.0);
+        expenseTracker.addExpense("Entertainment", 20.0);
+
+        // Viewing all expenses
+        expenseTracker.viewExpenses();
+
+        // Calculating total expenses
+        System.out.println("Total Expenses: " + expenseTracker.calculateTotalExpense());
+
+        // Calculating category-wise expenses
+        Map<String, Double> categoryWiseExpense = expenseTracker.calculateCategoryWiseExpense();
+        System.out.println("Category-wise Expenses: " + categoryWiseExpense);
+}
+}
